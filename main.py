@@ -38,6 +38,50 @@ def get_perfect_squares(start, end):
         return False
 
 
+def is_prime(m):
+    """
+    Determina daca un numar este prim.
+    Input:
+    -m : intreg
+    Output:
+    -True or False : bool
+    """
+    nr = 0
+    for div in range(2, m // 2):
+        if m % div == 0:
+            nr = nr + 1
+    if nr == 0:
+        return True
+    else:
+        return False
+
+
+def is_superprime(p):
+    """
+    Determina daca un numar este superprim.
+    Input:
+    -n : intreg, numarul care trebuie verificat
+    Output:
+    -True or False: bool
+    """
+    ok = 0
+    while p != 0 & ok == 0:
+        if is_prime(int(p)) == False:
+            ok = 1
+        p = p // 10
+    if ok == 0:
+        return True
+    else:
+        return False
+
+
+def test_is_superprime():
+    assert is_superprime(233) == True
+    assert is_superprime(113) == True
+    assert is_superprime(243) == False
+    assert is_superprime(245) == False
+
+
 def test_is_palindrome():
     assert is_palindrome(112) == False
     assert is_palindrome(232) == True
@@ -57,7 +101,8 @@ def main():
     while True:
         print('1.Verificare numar palindrom.')
         print('2.Afisarea patratelor perfecte dintr-un interval dat.')
-        print('3.Exit.')
+        print('3.Verificare daca un numar este superprim')
+        print('4.Exit.')
         optiune = input('Alegeti o optiune: ')
         if optiune == '1':
             nr = int(input('Numarul pe care doriti sa il verifice: '))
@@ -73,6 +118,12 @@ def main():
             else:
                 print(get_perfect_squares(st, sf))
         elif optiune == '3':
+            numar = int(input('Dati numarul pe care doriti sa il verificati: '))
+            if is_superprime(numar) == True:
+                print('Numarul este superprim.')
+            else:
+                print('Numarul nu este superprim.')
+        elif optiune == '4':
             break
         else:
             print('Optiune invalida.')
@@ -80,4 +131,7 @@ def main():
 
 test_is_palindrome()
 test_get_perfect_squares()
-main()
+test_is_superprime()
+if __name__ == '__main__':
+    main()
+
